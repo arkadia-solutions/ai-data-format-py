@@ -1,10 +1,10 @@
 [project]
-name = "ai-data"
+name = "arkadia-ai-data"
 version = "0.1.0"
 description = "Arkadia AI Data Format (AID) - A versatile data serialization format optimized for AI applications."
 readme = "README.md"
 authors = [
-    { name = "Arkadiusz Klemenko", email = "arkadiusz.klemenko@grapeup.com" }
+    { name = "Arkadiusz Klemenko", email = "arek.klemenko@gmail.com" }
 ]
 requires-python = ">=3.10"
 dependencies = [
