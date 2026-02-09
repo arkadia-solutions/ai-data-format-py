@@ -49,7 +49,7 @@
 Get started immediately with pip:
 
 ```bash
-pip install arkadia-ai-data
+pip install arkadia-ai-data-format
 ```
 
 ## 🚀 Fast Example
