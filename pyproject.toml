@@ -1,6 +1,6 @@
 [project]
 name = "arkadia-ai-data-format"
-version = "0.1.5"
+version = "0.1.6"
 description = "Arkadia AI Data Format (AID) - A versatile data serialization format optimized for AI applications."
 readme = "README.md"
 authors = [
