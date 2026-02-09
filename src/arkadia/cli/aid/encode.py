@@ -42,11 +42,11 @@ def show_encode_help():
         description="Converts structured data (JSON, YAML, TOON, AID) into Arkadia AI Data Format (AID)."
     )
     
-    cli.print_usage("aid enc", "[flags] <input_file>", "")
+    cli.print_usage("aid enc", "[flags] [input_file]", "")
 
     # 1. Positional Arguments
     args_list = [
-        {"flags": "input_file", "desc": "Path to source file (.json, .yaml, .yml, .toon .aid)"}
+        {"flags": "input_file", "desc": "Path to source file (.json, .yaml, .yml, .toon .aid) or '-' for JSON stdin."}
     ]
     cli.print_options("Arguments", args_list)
 
@@ -172,19 +172,38 @@ def run(args):
     Expects 'args' to be a namespace from argparse.
     """
     # 1. Validation
-    if not args.input:
-        print(f"{C.RED}Error: Input file required.{C.RESET}")
-        show_encode_help()
+    data = None
+    # 1. Input Resolution (File vs Stdin)
+    if args.input and args.input != "-":
+        input_path = pathlib.Path(args.input)
+        if not input_path.exists():
+            print(f"{C.RED}Error: File not found: {input_path}{C.RESET}", file=sys.stderr)
+            sys.exit(1)
+        
+        try:
+            data = load_data(input_path)
+        except Exception as e:
+            print(f"{C.RED}Error loading file:{C.RESET} {e}", file=sys.stderr)
+            sys.exit(1)
+    # Handle Stdin (explicit '-' or implicit pipe)
+    else:
+        # Check if data is actually being piped or if '-' was used
+        if not sys.stdin.isatty() or args.input == "-":
+            try:
+                content = sys.stdin.read()
+                data = json.loads(content)  # Assuming stdin is JSON; could add format detection if needed
+            except Exception as e:
+                print(f"{C.RED}Error reading stdin:{C.RESET} {e}", file=sys.stderr)
+                sys.exit(1)
+        else:
+            # No file provided and no piped data -> Show Help
+            print(f"{C.RED}Error: Input required (file or stdin).{C.RESET}", file=sys.stderr)
+            sys.exit(1)
+
+    if not data:
+        print(f"{C.RED}Error: Input is empty.{C.RESET}", file=sys.stderr)
         sys.exit(1)
 
-    input_path = pathlib.Path(args.input)
-
-    # 2. Load Input Data
-    try:
-        data = load_data(input_path)
-    except Exception as e:
-        print(f"{C.RED}Error loading file:{C.RESET} {e}")
-        sys.exit(1)
 
     # 3. Prepare Configuration
     # Mapping CLI flags to EncoderConfig dictionary
