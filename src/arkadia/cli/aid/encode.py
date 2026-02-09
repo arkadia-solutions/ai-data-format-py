@@ -260,7 +260,7 @@ def register_arguments(parser):
     parser.add_argument("--indent", type=int, default=2, help="Indentation spaces")
     parser.add_argument("--start-indent", type=int, default=0, help="Start indentation")
     parser.add_argument("--escape-newlines", action="store_true", help="Escape \\n")
-    parser.add_argument("--include-comments", action="store_true", help="Do not include comments")
+    parser.add_argument("--no-comments", action="store_true", help="Do not include comments")
     parser.add_argument("--include-array-size", action="store_true", help="Add @size annotation")
     
     # Negative flags (default True in logic)

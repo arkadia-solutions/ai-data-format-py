@@ -896,7 +896,7 @@ class Decoder:
             self._add_error("Unterminated comment (expected '*/')")
             
         final_comment = "".join(content_chars).strip()
-        self._dbg(f"END block comment '{final_comment[:30] + ("..." if len(final_comment) > 30 else "")}'")
+        self._dbg(f"END block comment '{final_comment[:30] + ('...' if len(final_comment) > 30 else '')}'")
         return final_comment
 
 

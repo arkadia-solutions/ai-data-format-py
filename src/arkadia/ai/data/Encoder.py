@@ -169,7 +169,7 @@ class Encoder:
             # e.g., Compact: <id:int> | Pretty: < id: int >
             return ind + prefix + "<" + pad + record_meta + inner_fields + pad + ">"
 
-        return ind + f"<{meta if include_meta else ""}any>"
+        return ind + f"<{meta if include_meta else ''}any>"
 
     # --- Helper to deduplicate field encoding logic ---
     def _encode_schema_fields(self, schema: Schema) -> str:
@@ -301,8 +301,6 @@ class Encoder:
             return ""
 
         content = " ".join(items)
-
-        print("META", content)
         
         # Inline: /* c1 */ !req $a=1
         return content
