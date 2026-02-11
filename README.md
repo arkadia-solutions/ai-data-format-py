@@ -136,13 +136,13 @@ b: string , c:number, >
 >
 [
   @size=5
-  /example list of values/
+  /* example list of values */
 
-  (1,`text`,5)
-  (2,`Text can be
+  (1,"text",5)
+  (2,"Text can be
 
 multiline
-`,5)
+",5)
   {
     id:3,
     b: "text"
@@ -155,7 +155,7 @@ multiline
 
 * The type name (`@Name`) is optional but recommended.
 * The header `<...>` defines field names and their order.
-* Comments (`/ ... /`) are **allowed** in the header.
+* Comments (`/* ... */`) are **allowed** in the header.
 
 ### 2. Data Structures
 
@@ -171,8 +171,7 @@ The format supports compact positional records and explicit named records.
 ### 3. Comments
 
 ```aid
-/ this is a comment /
-
+/* this is a comment */
 ```
 
 * Allowed **only** inside type definitions.
